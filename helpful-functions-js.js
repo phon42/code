@@ -79,6 +79,8 @@ function getPair (variable) {
   return [x, y];
 }
 function getHTMLText (url, callback) {
+  // Retrieves the HTML content of a page as text
+  // This text is passed to the callback function and can be retrieved by referring to this.responseText in the callback function
   var oReq;
   
   oReq = new XMLHttpRequest();
