@@ -409,7 +409,7 @@ function formatNumberSemiScientific (num, degree) { // degree = number of digits
 
   return result;
 }
-function getIndicesOf (searchStr, str, caseSensitive) {
+String.prototype.getIndicesOf = function getIndicesOf (searchStr, str, caseSensitive) {
   // get all indices of a search string
   var searchStrLen = searchStr.length;
   if (searchStrLen == 0) {
@@ -425,8 +425,7 @@ function getIndicesOf (searchStr, str, caseSensitive) {
     startIndex = index + searchStrLen;
   }
   return indices;
-}
-String.prototype.getIndicesOf = getIndicesOf(searchStr, str, caseSensitive);
+};
 String.prototype.remove = function (a, b) {
   return this.slice(0, a) + this.slice(b, this.length);
 };
