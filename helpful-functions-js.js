@@ -78,6 +78,41 @@ function getPair (variable) {
   }
   return [x, y];
 }
+function loopArrayIndex (index) {
+/*
+Given an array index, it transforms it into a "looped" array index
+If {index} is more than (the array length - 1) or less than 0 it gets flipped to the other side (as in modular arithmetic)
+
+(the array index) = {size}
+*/
+  
+  index %= size;
+  
+  return index;
+}
+function arraySum (arr) {
+// From https://codeburst.io/javascript-arrays-finding-the-minimum-maximum-sum-average-values-f02f1b0ce332
+  var sum;
+  var sumFunc;
+  
+  sumFunc = function (a, b) {
+    return a + b;
+  };
+  sum = arr.reduce(sumFunc, 0);
+  
+  return sum;
+}
+function arrayAverage (arr) {
+  var average;
+  var sum;
+  var length;
+  
+  length = arr.length;
+  sum = arraySum(arr);
+  average = sum / length;
+  
+  return average;
+}
 function getHTMLText (url, callback) {
   // Retrieves the HTML content of a page as text
   // This text is passed to the callback function and can be retrieved by referring to this.responseText in the callback function
