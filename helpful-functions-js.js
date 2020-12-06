@@ -78,7 +78,7 @@ function getPair (variable) {
   }
   return [x, y];
 }
-function loopArrayIndex (index) {
+function loopArrayIndex (index, length) {
 /*
 Given an array index, it transforms it into a "looped" array index
 If {index} is more than (the array length - 1) or less than 0 it gets flipped to the other side (as in modular arithmetic)
@@ -86,7 +86,10 @@ If {index} is more than (the array length - 1) or less than 0 it gets flipped to
 (the array index) = {size}
 */
   
-  index %= size;
+  while (index < 0) {
+    index += length;
+  }
+  index %= length;
   
   return index;
 }
