@@ -1,7 +1,497 @@
 var Canvas = {};
+class Canvas {
+	constructor (id) {
+		if (typeof id === "string") { // id = id of the canvas element
+			this.canvas = document.getElementById(id);
+		} else if (typeof id === "object") { // id = canvas element object
+			this.canvas = id;
+		} else {
+			this.canvas = document.createElement("CANVAS");
+		}
+		this.context = this.canvas.getContext("2d");
+		this.viewX = this.canvas.width;
+		this.viewY = this.canvas.height;
+	}
+	convert (x, y) {
+    y *= -1;
+    
+    return [x, y];
+  }
+  dot (x, y) {
+    var a = this.convert(x, y);
+    
+    x = a[0];
+    y = a[1];
+    this.context.beginPath();
+    this.context.arc(x, y, viewZ / 500, 0, 2 * Math.PI);
+    this.context.fill();
+  };
+  line (x1, y1, x2, y2) {
+    var a1 = this.convert(x1, y1);
+    var a2 = this.convert(x2, y2);
+    
+    x1 = a1[0];
+    y1 = a1[1];
+    x2 = a2[0];
+    y2 = a2[1];
+    this.context.beginPath();
+    this.context.moveTo(x1, y1);
+    this.context.lineTo(x2, y2);
+    this.context.stroke();
+  };
+  rect (x, y, width, height, center) {
+    // x, y = topleft corner unless center === true
+    var a;
+    
+    if (center === true) {
+      x -= width / 2;
+      y += height / 2;
+    }
+    // regardless of whether center is true, x, y will always = topleft corner
+    a = this.convert(x, y);
+    x = a[0];
+    y = a[1];
+    this.context.beginPath();
+    this.context.rect(x, y, width, height);
+    this.context.stroke();
+  };
+  roundRect (x, y, width, height, radius, center) {
+    // draws a rectangle with rounded corners
+    // corners are of radius `radius`
+    // the rounded corners only remove material from the corners
+    // x, y = topleft corner unless center === true
+    var x1;
+    var y1;
+    var x2;
+    var y2;
+    var x3;
+    var y3;
+    var x4;
+    var y4;
+    var x5;
+    var y5;
+    var x6;
+    var y6;
+    var x7;
+    var y7;
+    var x8;
+    var y8;
+    var x9;
+    var y9;
+    var a1;
+    var a2;
+    var a3;
+    var a4;
+    var a5;
+    var a6;
+    var a7;
+    var a8;
+    var a9;
+    
+    if (center === true) {
+      x -= width / 2;
+      y += height / 2;
+    }
+    // regardless of whether center is true, x, y will always = topleft corner
+    x1 = x + radius;
+    y1 = y;
+    x2 = x - radius + width;
+    y2 = y;
+    x3 = x - radius + width;
+    y3 = y - radius;
+    x4 = x + width;
+    y4 = y + radius - height;
+    x5 = x - radius + width;
+    y5 = y + radius - height;
+    x6 = x + radius;
+    y6 = y - height;
+    x7 = x + radius;
+    y7 = y + radius - height;
+    x8 = x;
+    y8 = y - radius;
+    x9 = x + radius;
+    y9 = y - radius;
+    radius = Math.min(width / 2, height / 2, radius); // `radius` must be <= half the length of the smallest side
+    a1 = this.convert(x1, y1);
+    a2 = this.convert(x2, y2);
+    a3 = this.convert(x3, y3);
+    a4 = this.convert(x4, y4);
+    a5 = this.convert(x5, y5);
+    a6 = this.convert(x6, y6);
+    a7 = this.convert(x7, y7);
+    a8 = this.convert(x8, y8);
+    a9 = this.convert(x9, y9);
+    x1 = a1[0];
+    y1 = a1[1];
+    x2 = a2[0];
+    y2 = a2[1];
+    x3 = a3[0];
+    y3 = a3[1];
+    x4 = a4[0];
+    y4 = a4[1];
+    x5 = a5[0];
+    y5 = a5[1];
+    x6 = a6[0];
+    y6 = a6[1];
+    x7 = a7[0];
+    y7 = a7[1];
+    x8 = a8[0];
+    y8 = a8[1];
+    x9 = a9[0];
+    y9 = a9[1];
+    this.context.beginPath();
+    this.context.moveTo(x1, y1);
+    this.context.lineTo(x2, y2);
+    this.context.arc(x3, y3, radius, 3 * Math.PI / 2, 0);
+    this.context.lineTo(x4, y4);
+    this.context.arc(x5, y5, radius, 0, Math.PI / 2);
+    this.context.lineTo(x6, y6);
+    this.context.arc(x7, y7, radius, Math.PI / 2, Math.PI);
+    this.context.lineTo(x8, y8);
+    this.context.arc(x9, y9, radius, Math.PI, 3 * Math.PI / 2);
+    this.context.stroke();
+  };
+  fillRect (x, y, width, height, center) {
+    // x, y = topleft corner unless center === true
+    var a;
+    
+    if (center === true) {
+      x -= width / 2;
+      y += height / 2;
+    }
+    // regardless of whether center is true, x, y will always = topleft corner
+    a = this.convert(x, y);
+    x = a[0];
+    y = a[1];
+    this.context.beginPath();
+    this.context.rect(x, y, width, height);
+    this.context.fill();
+  };
+  fillRoundRect (x, y, width, height, radius, center) {
+    // draws a filled rectangle for rounded corners
+    // corners are of radius `radius`
+    // the rounded corners only remove material from the corners
+    // x, y = topleft corner unless center === true
+    var x1;
+    var y1;
+    var x2;
+    var y2;
+    var x3;
+    var y3;
+    var x4;
+    var y4;
+    var x5;
+    var y5;
+    var x6;
+    var y6;
+    var x7;
+    var y7;
+    var x8;
+    var y8;
+    var x9;
+    var y9;
+    var a1;
+    var a2;
+    var a3;
+    var a4;
+    var a5;
+    var a6;
+    var a7;
+    var a8;
+    var a9;
+    
+    if (center === true) {
+      x -= width / 2;
+      y += height / 2;
+    }
+    // regardless of whether center is true, x, y will always = topleft corner
+    x1 = x + radius;
+    y1 = y;
+    x2 = x - radius + width;
+    y2 = y;
+    x3 = x - radius + width;
+    y3 = y - radius;
+    x4 = x + width;
+    y4 = y + radius - height;
+    x5 = x - radius + width;
+    y5 = y + radius - height;
+    x6 = x + radius;
+    y6 = y - height;
+    x7 = x + radius;
+    y7 = y + radius - height;
+    x8 = x;
+    y8 = y - radius;
+    x9 = x + radius;
+    y9 = y - radius;
+    radius = Math.min(width / 2, height / 2, radius); // `radius` must be <= half the length of the smallest side
+    a1 = this.convert(x1, y1);
+    a2 = this.convert(x2, y2);
+    a3 = this.convert(x3, y3);
+    a4 = this.convert(x4, y4);
+    a5 = this.convert(x5, y5);
+    a6 = this.convert(x6, y6);
+    a7 = this.convert(x7, y7);
+    a8 = this.convert(x8, y8);
+    a9 = this.convert(x9, y9);
+    x1 = a1[0];
+    y1 = a1[1];
+    x2 = a2[0];
+    y2 = a2[1];
+    x3 = a3[0];
+    y3 = a3[1];
+    x4 = a4[0];
+    y4 = a4[1];
+    x5 = a5[0];
+    y5 = a5[1];
+    x6 = a6[0];
+    y6 = a6[1];
+    x7 = a7[0];
+    y7 = a7[1];
+    x8 = a8[0];
+    y8 = a8[1];
+    x9 = a9[0];
+    y9 = a9[1];
+    this.context.beginPath();
+    this.context.moveTo(x1, y1);
+    this.context.lineTo(x2, y2);
+    this.context.arc(x3, y3, radius, 3 * Math.PI / 2, 0);
+    this.context.lineTo(x4, y4);
+    this.context.arc(x5, y5, radius, 0, Math.PI / 2);
+    this.context.lineTo(x6, y6);
+    this.context.arc(x7, y7, radius, Math.PI / 2, Math.PI);
+    this.context.lineTo(x8, y8);
+    this.context.arc(x9, y9, radius, Math.PI, 3 * Math.PI / 2);
+    this.context.fill();
+  };
+  circle (x, y, radius) {
+    var a = this.convert(x, y);
+    
+    x = a[0];
+    y = a[1];
+    this.context.beginPath();
+    this.context.arc(x, y, radius, 0, 2 * Math.PI);
+    this.context.stroke();
+  };
+  fillCircle (x, y, radius) {
+    var a = this.convert(x, y);
+    
+    x = a[0];
+    y = a[1];
+    this.context.beginPath();
+    this.context.arc(x, y, radius, 0, 2 * Math.PI);
+    this.context.fill();
+  };
+  arc (x, y, radius, startAngle, endAngle, angleType) {
+    // defaults to taking input in degrees
+    // when angle = 0, canvas output = directly to the right from origin point
+    // it moves clockwise from there
+    var a = this.convert(x, y);
+    
+    if ((angleType === undefined)||(angleType === "deg")||(angleType === "degs")||(angleType === "degree")||(angleType === "degrees")) {
+      startAngle = degreesToRads(startAngle);
+      endAngle = degreesToRads(endAngle);
+    }
+    x = a[0];
+    y = a[1];
+    this.context.beginPath();
+    this.context.arc(x, y, radius, startAngle, endAngle);
+    this.context.stroke();
+  };
+  fillArc (x, y, radius, startAngle, endAngle, angleType) {
+    // defaults to taking input in degrees
+    // when angle = 0, canvas output = directly to the right from origin point
+    // it moves clockwise from there
+    var a = this.convert(x, y);
+    
+    if ((angleType === undefined)||(angleType === "deg")||(angleType === "degs")||(angleType === "degree")||(angleType === "degrees")) {
+      startAngle = degreesToRads(startAngle);
+      endAngle = degreesToRads(endAngle);
+    }
+    x = a[0];
+    y = a[1];
+    this.context.beginPath();
+    this.context.arc(x, y, radius, startAngle, endAngle);
+    this.context.lineTo(x, y);
+    this.context.closePath();
+    this.context.fill();
+  };
+  clearRect (x, y, width, height, center) {
+    // x, y = topleft corner unless center === true
+    var a;
+    
+    if (center === true) {
+      x -= width / 2;
+      y += height / 2;
+    }
+    a = this.convert(x, y);
+    x = a[0];
+    y = a[1];
+    this.context.clearRect(x, y, width, height);
+  };
+  clearCanvas () {
+    this.clearRect(- this.viewX / 2, this.viewY / 2, this.viewX, this.viewY);
+  };
+  dot3D (x, y, z) {
+    var c;
+    var cX;
+    var cY;
+    
+    if (z === undefined) {
+      y = x[1];
+      z = x[2];
+      x = x[0];
+    }
+    c = this.flatten(x, y, z);
+    c = this.convert(c);
+    cX = c[0];
+    cY = c[1];
+    this.dot(cX, cY);
+  };
+  line3D (x1, y1, z1, x2, y2, z2) {
+    var a1;
+    var a2;
+    
+    if (z2 === undefined) {
+      if (y2 === undefined) {
+        if (z1 === undefined) {
+          z1 = x1[2];
+          x2 = y1[0];
+          y2 = y1[1];
+          z2 = y1[2];
+          y1 = x1[1];
+          x1 = x1[0];
+        } else {
+          if (typeof x1 === "object") {
+            x2 = y1;
+            y2 = z1;
+            z2 = x2;
+            y1 = x1[1];
+            z1 = x1[2];
+            x1 = x1[0];
+          } else {
+            y2 = x2[1];
+            z2 = x2[2];
+            x2 = x2[0];
+          }
+        }
+      } else {
+        z1 = x1[2];
+        x2 = y1[0];
+        y2 = y1[1];
+        z2 = y1[2];
+        y1 = x1[1];
+        x1 = x1[0];
+      }
+    }
+    a1 = this.flatten(x1, y1, z1);
+    a1 = this.convert(a1);
+    a2 = this.flatten(x2, y2, z2);
+    a2 = this.convert(a2);
+    x1 = a1[0];
+    y1 = a1[1];
+    x2 = a2[0];
+    y2 = a2[1];
+    this.context.beginPath();
+    this.context.moveTo(x1, y1);
+    this.context.lineTo(x2, y2);
+    this.context.stroke();
+  };
+  drawImage (image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight) {
+    var a1;
+    var a2;
+
+    if (dHeight === undefined) {
+      if (sHeight === undefined) { // format: ctx.drawImage(image, dx, dy);
+        a1 = this.convert(sx, sy);
+        sx = a1[0];
+        sy = a1[1];
+        this.drawImage(image, sx, sy);
+      } else { // format: ctx.drawImage(image, dx, dy, dWidth, dHeight);
+        a1 = this.convert(sx, sy);
+        sx = a1[0];
+        sy = a1[1];
+        this.drawImage(image, sx, sy, sWidth, sHeight);
+      }
+    } else { // format: ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+      a1 = this.convert(sx, sy);
+      a2 = this.convert(dx, dy);
+      sx = a1[0];
+      sy = a1[1];
+      dx = a2[0];
+      dy = a2[1];
+      this.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    }
+  };
+  getImageData (x, y, width, height, center) {
+    var a;
+    var data;
+    
+    if (center === true) {
+    // x, y = the CENTER of the rectangle
+      x -= width / 2;
+      y += height / 2;
+    }
+    a = this.convert(x, y);
+    x = a[0];
+    y = a[1];
+    data = this.getImageData(x, y, width, height);
+    
+    return data;
+  };
+  getImageDataArray (x, y, width, height, center) {
+    var data;
+    var arr = [];
+    var orderedArr = [];
+    
+    data = this.getImageData(x, y, width, height, center);
+    for (var i = 0; i < data.width * data.height; i += 4) {
+      arr.push([]);
+      arr[i / 4][0] = data.data[i];
+      arr[i / 4].push(data.data[i + 1]);
+      arr[i / 4].push(data.data[i + 2]);
+      arr[i / 4].push(data.data[i + 3]);
+    }
+    for (var i = 0; i < data.height; i++) {
+      orderedArr.push([]);
+      for (var ii = 0; ii < data.width; ii++) {
+        orderedArr[i][ii] = arr[arr.length - ((i + 1) * data.width) + ii];
+      }
+    }
+    
+    return orderedArr;
+  }
+  getFullCanvasImageData () {
+    var data;
+    
+    data = this.getImageData(- this.viewX / 2, this.viewY / 2, this.viewX, this.viewY);
+    
+    return data;
+  }
+  getFullCanvasImageDataArray () {
+    var data;
+    
+    data = this.getImageDataArray(- this.viewX / 2, this.viewY / 2, this.viewX, this.viewY);
+    
+    return data;
+  }
+  putImageData (data, x, y, center) {
+    var a;
+    
+    if (center === true) {
+    // x, y = the CENTER of the rectangle
+      x -= data.width / 2;
+      y += data.height / 2;
+    }
+    a = this.convert(x, y);
+    x = a[0];
+    y = a[1];
+    this.putImageData(data, x, y);
+  }
+}
+var CanvasObj = {};
 var Code = {};
 
-Canvas.drawRect = function (x, y, width, height, id) {
+CanvasObj.drawRect = function (x, y, width, height, id) {
   var canvas = document.getElementById(id);
   var ctx = canvas.getContext("2d");
   
@@ -9,15 +499,15 @@ Canvas.drawRect = function (x, y, width, height, id) {
   ctx.rect(x, y, x + width, y + height);
   ctx.stroke();
 };
-Canvas.drawCircle = function (x, y, radius, context, canvas) {
+CanvasObj.drawCircle = function (x, y, radius, context, id) {
   var canvas = document.getElementById("box1");
-  var ctx = canvas.getContext("2d");
+  var ctx = Canvas.context;
   
   ctx.beginPath();
   ctx.arc(x, y, 2, 0, 2 * Math.PI); //ctx.arc(95, 50, 40, 0, 2 * Math.PI);
   ctx.stroke();
 };
-Canvas.drawArc = function (x, y, radius, startAngle, endAngle, context, canvas) {
+CanvasObj.drawArc = function (x, y, radius, startAngle, endAngle, context, canvas) {
   // startAngle and endAngle should be in degrees
   var canvas = document.getElementById("box1");
   var ctx = canvas.getContext("2d");
@@ -28,7 +518,7 @@ Canvas.drawArc = function (x, y, radius, startAngle, endAngle, context, canvas) 
   ctx.arc(x, y, 2, startAngle, endAngle); //ctx.arc(95, 50, 40, 0, 2 * Math.PI);
   ctx.stroke();
 };
-Canvas.drawLine = function (x1, y1, x2, y2, id) {
+CanvasObj.drawLine = function (x1, y1, x2, y2, id) {
   // line
   var c = document.getElementById(id);
   var ctx = c.getContext("2d");
@@ -38,7 +528,7 @@ Canvas.drawLine = function (x1, y1, x2, y2, id) {
   ctx.stroke();
 };
 /*
-Canvas.drawLine = function (x1, y1, x2, y2, context, canvas) {
+CanvasObj.drawLine = function (x1, y1, x2, y2, context, canvas) {
 context.beginPath();
 context.moveTo(x1, y1);
 context.lineTo(x2, y2);
@@ -409,7 +899,7 @@ function formatNumberSemiScientific (num, degree) { // degree = number of digits
 
   return result;
 }
-String.prototype.getIndicesOf = function getIndicesOf (searchStr, str, caseSensitive) {
+String.prototype.getIndicesOf = function (searchStr, str, caseSensitive) {
   // get all indices of a search string
   var searchStrLen = searchStr.length;
   if (searchStrLen == 0) {
