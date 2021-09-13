@@ -1315,3 +1315,22 @@ var loadJS = function (url, implementationCode, location){
 // your code goes here
 // }
 // loadJS('yourcode.js', callback, document.body);
+
+
+function signOf (n) {
+// returns the sign of {n}:
+/*
+n > 0: returns + 1
+n = 0: returns 0
+n < 0: returns - 1
+*/
+  if (n === 0) {
+    return 0;
+  } else {
+    if (n > 0) {
+      return 1;
+    } else if (n < 0) {
+      return - 1;
+    }
+  }
+}
